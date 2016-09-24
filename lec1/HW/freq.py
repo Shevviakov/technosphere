@@ -11,11 +11,19 @@ count = {
     u'и':0, 
     u'ю':0
 }
-def print_dict(d):
+
+total = 0
+
+def print_freq(d, t):
+    for k in d.keys():
+    	freq = d[k]/1.0/t
+        print(k.encode('utf8')+': '+str(freq))
     
-print(count)
 with open('input.txt', 'r') as f:
     for line in f:
         for ch in line.decode('utf8'):
+            if ch.isalnum() : total += 1
             if ch in count.keys(): count[ch] += 1
-print(count)
+
+print('Частотность русских гласных в тексте:')
+print_freq(count, total)
