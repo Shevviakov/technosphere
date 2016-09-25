@@ -20,10 +20,15 @@ count = {
 
 total = 0
 
-def print_freq(d, t):
+def count_freq(d, t):
+    freq = {}
     for k in d.keys():
-    	freq = d[k]/1.0/t
-        print(k.encode('utf8')+': '+str(freq))
+        freq[k] = d[k]/1.0/t
+    return freq
+
+def print_dict(d):
+    for k in d.keys():
+        print(k.encode('utf8')+': '+str(d[k]))
 
 try:
     filename = sys.argv[1]
@@ -41,9 +46,11 @@ except:
     exit()
 
 print('Частотность русских гласных в тексте:')
-print_freq(count, total)
+freq = count_freq(count, total)
+print_dict(freq)
 
 matplotlib.rc('font', family= 'Arial, Liberation Sans')
-plt.bar(np.arange(len(count)), count.values())
-plt.xticks(np.arange(len(count)), count.keys())
+plt.bar(np.arange(len(freq)), freq.values(), width=0.8)
+plt.xticks(np.arange(len(freq)) + 0.4, freq.keys())
+plt.ylim(0, 1)
 plt.show()
